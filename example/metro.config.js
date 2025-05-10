@@ -1,16 +1,13 @@
 const path = require('path');
-const { getDefaultConfig } = require('@react-native/metro-config');
-const { getConfig } = require('react-native-builder-bob/metro-config');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-const root = path.resolve(__dirname, '..');
+const defaultConfig = getDefaultConfig(__dirname);
 
-/**
- * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
- *
- * @type {import('metro-config').MetroConfig}
- */
-module.exports = getConfig(getDefaultConfig(__dirname), {
-  root,
-  project: __dirname,
+module.exports = mergeConfig(defaultConfig, {
+  watchFolders: [path.resolve(__dirname, '..')],
+  resolver: {
+    extraNodeModules: {
+      'react-native-turboxml': path.resolve(__dirname, '..'),
+    },
+  },
 });

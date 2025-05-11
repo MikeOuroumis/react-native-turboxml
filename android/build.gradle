@@ -74,6 +74,14 @@ def kotlin_version = getExtOrDefault("kotlinVersion")
 dependencies {
   implementation "com.facebook.react:react-android"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
+  implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3'
+  implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.3'
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+  implementation "javax.xml.stream:stax-api:1.0-2"
+  implementation "com.fasterxml.woodstox:woodstox-core:7.1.0"
 }
 
 react {

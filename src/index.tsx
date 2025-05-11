@@ -1,5 +1,5 @@
 import Turboxml from './NativeTurboxml';
 
-export function multiply(a: number, b: number): number {
-  return Turboxml.multiply(a, b);
+export function parseXml(xml: string): Promise<Record<string, unknown>> {
+  return Turboxml.parseXml(xml);
 }

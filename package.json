@@ -2,13 +2,19 @@
   "name": "react-native-turboxml",
   "version": "0.1.0",
   "description": "A high-performance XML parser for React Native built using C++ and TurboModules.",
-  "main": "./lib/module/index.js",
-  "types": "./lib/typescript/src/index.d.ts",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/module/index.js",
+  "types": "./lib/typescript/commonjs/src/index.d.ts",
   "exports": {
     ".": {
-      "source": "./src/index.tsx",
-      "types": "./lib/typescript/src/index.d.ts",
-      "default": "./lib/module/index.js"
+      "require": {
+        "default": "./lib/commonjs/index.js",
+        "types": "./lib/typescript/commonjs/src/index.d.ts"
+      },
+      "import": {
+        "default": "./lib/module/index.js",
+        "types": "./lib/typescript/module/src/index.d.ts"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -47,7 +53,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MikeOuroumis/react-native-turboxml.git"
+    "url": "https://github.com/MikeOuroumis/react-native-turboxml.git"
   },
   "author": "Michael Ouroumis <michalisouroumis@gmail.com> (https://github.com/MikeOuroumis)",
   "license": "MIT",
@@ -134,6 +140,7 @@
     "source": "src",
     "output": "lib",
     "targets": [
+      "commonjs",
       [
         "module",
         {

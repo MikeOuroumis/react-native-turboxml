@@ -1,6 +1,6 @@
 {
   "name": "react-native-turboxml",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A high-performance native XML parser for React Native built with Kotlin and Objective-C using TurboModules and the New Architecture.",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",

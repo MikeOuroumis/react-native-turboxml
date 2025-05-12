@@ -1,6 +1,6 @@
 {
   "name": "react-native-turboxml",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A high-performance XML parser for React Native built using C++ and TurboModules.",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",

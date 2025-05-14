@@ -1,22 +1,24 @@
 <p align="center">
-  <img src="./assets/logo.png" alt="TurboXML Logo" width="160" />
+  <img src="./assets/logo.png" alt="TurboXML – React Native XML Parser Logo" width="280" />
 </p>
 
-# 🚀 react-native-turboxml
+<h1 align="center">🚀 TurboXML – Fast XML Parser for React Native (TurboModules)</h1>
 
-A blazing-fast, native XML parser for React Native — **4× faster** than `react-native-xml2js`.
-
-Built with native Kotlin (Android) and Objective-C (iOS), TurboXML gives you fast and reliable XML parsing using the New Architecture (TurboModules + JSI).
+<p align="center">
+  A blazing-fast, Android-native XML parser built for React Native’s New Architecture using Kotlin, JSI, and TurboModules.  
+  <br />
+  <strong>4× faster</strong> than <code>react-native-xml2js</code> in parsing large XML files.
+</p>
 
 ---
 
-## ⚡️ Features
+## ⚡ Features
 
 - ✅ 4× faster than `react-native-xml2js`
-- ✅ Native performance with multithreaded parsing
-- ✅ TurboModule + JSI support (New Architecture ready)
-- ✅ Easy to install and use
-- ✅ Fully typed API (TypeScript support)
+- ✅ Native multithreaded XML parsing on Android
+- ✅ Powered by TurboModules + JSI (New Architecture support)
+- ✅ Lightweight and fully typed (TypeScript ready)
+- ✅ Designed for offline, map-heavy, or config-driven React Native apps
 
 ---
 
@@ -28,15 +30,17 @@ npm install react-native-turboxml
 yarn add react-native-turboxml
 ```
 
-Make sure New Architecture is enabled in your React Native project. Then:
+Make sure **New Architecture** is enabled:
 
 ```bash
 cd ios && RCT_NEW_ARCH_ENABLED=1 pod install && cd ..
 ```
 
+> ⚠️ Currently supports **Android only**. iOS support planned for future releases.
+
 ---
 
-## Usage
+## 🧪 Usage Example
 
 ```tsx
 import { useEffect, useState } from 'react';
@@ -60,7 +64,7 @@ export default function App() {
         setParsedResult(JSON.stringify(result, null, 2));
       })
       .catch((error) => {
-        setParsedResult(`Error: ${error.message}`);
+        setParsedResult(\`Error: \${error.message}\`);
       });
   }, []);
 
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
 
 ---
 
-## Example Output
+## ✅ Example Output
 
 ```json
 {
@@ -104,22 +108,29 @@ const styles = StyleSheet.create({
 
 ---
 
-## Why TurboXML?
+## 🚀 Why TurboXML?
 
-If you're working with large XML files or parsing frequently (e.g., for maps, configs, or offline content), TurboXML cuts parsing time down from **35s to \~5s** compared to JS-based solutions.
-
----
-
-## 🛠️ Requirements
-
-- React Native 0.71+ (New Architecture enabled)
-- iOS 11+ / Android 5+
-- TurboModule support enabled (default in recent RN versions)
+If your app needs to parse large XML files — such as **offline maps**, **configuration files**, or **external data feeds** — `react-native-turboxml` offers a significant speed improvement over JavaScript-based parsers by leveraging native code, multithreading, and the React Native New Architecture (TurboModules + JSI).
 
 ---
 
-## 📚 API
+## 🛠 Requirements
+
+- React Native 0.71+ with **New Architecture enabled**
+- Android 5+ (iOS support coming)
+- TurboModule + JSI support (enabled by default in modern RN projects)
+
+---
+
+## 📚 API Reference
 
 ```ts
 function parseXml(xml: string): Promise<Record<string, any>>;
 ```
+
+---
+
+### 🙌 Contribute or Sponsor
+
+Got feature ideas or want to help bring iOS support? PRs welcome!
+If this module helps your app or workflow, consider starring the repo or [reaching out](https://github.com/MikeOuroumis).

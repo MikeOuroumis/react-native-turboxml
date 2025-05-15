@@ -71,7 +71,7 @@
   "bugs": {
     "url": "https://github.com/MikeOuroumis/react-native-turboxml/issues"
   },
-  "homepage": "https://github.com/MikeOuroumis/react-native-turboxml#readme",
+  "homepage": "https://www.michaelouroumis.com/en/react-native-turboxml",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

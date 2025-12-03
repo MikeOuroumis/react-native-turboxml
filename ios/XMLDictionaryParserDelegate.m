@@ -28,11 +28,13 @@
     attributes:(NSDictionary<NSString *, NSString *> *)attributeDict
 {
   NSMutableDictionary *node = [NSMutableDictionary dictionary];
-  if (attributeDict.count > 0) {
-    node[@"_attributes"] = attributeDict;
+
+  // Add attributes directly to the node (prefixed with @)
+  for (NSString *key in attributeDict) {
+    node[[@"@" stringByAppendingString:key]] = attributeDict[key];
   }
 
-  [self.stack addObject:@{@"name": elementName, @"node": node, @"children": [NSMutableArray array]}];
+  [self.stack addObject:@{@"name": elementName, @"node": node}];
   [self.text setString:@""];
 }
 
@@ -45,24 +47,44 @@
 {
   NSString *trimmed = [self.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
   NSMutableDictionary *current = [self.stack.lastObject[@"node"] mutableCopy];
+  NSString *currentName = self.stack.lastObject[@"name"];
 
-  if (trimmed.length > 0) {
-    current[@"_text"] = trimmed;
-  }
-
-  NSArray *children = self.stack.lastObject[@"children"];
-  if (children.count > 0) {
-    current[@"_children"] = children;
-  }
-
-  NSDictionary *finished = @{ self.stack.lastObject[@"name"]: current };
   [self.stack removeLastObject];
 
-  if (self.stack.count > 0) {
-    NSMutableArray *parentChildren = self.stack.lastObject[@"children"];
-    [parentChildren addObject:finished];
+  // Determine the value for this element
+  id value;
+  if (current.count == 0 && trimmed.length > 0) {
+    // No children or attributes, just text - use the text directly
+    value = trimmed;
+  } else if (current.count == 0 && trimmed.length == 0) {
+    // Empty element
+    value = @"";
   } else {
-    [self.stack addObject:finished]; // final result
+    // Has children or attributes
+    if (trimmed.length > 0) {
+      current[@"#text"] = trimmed;
+    }
+    value = current;
+  }
+
+  if (self.stack.count > 0) {
+    // Add to parent
+    NSMutableDictionary *parent = self.stack.lastObject[@"node"];
+
+    if (parent[currentName]) {
+      // Key already exists - convert to array or append
+      id existing = parent[currentName];
+      if ([existing isKindOfClass:[NSMutableArray class]]) {
+        [existing addObject:value];
+      } else {
+        parent[currentName] = [NSMutableArray arrayWithObjects:existing, value, nil];
+      }
+    } else {
+      parent[currentName] = value;
+    }
+  } else {
+    // Root element
+    [self.stack addObject:@{currentName: value}];
   }
 
   [self.text setString:@""];

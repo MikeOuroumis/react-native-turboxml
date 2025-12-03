@@ -2,27 +2,38 @@
   <img src="./assets/logo.png" alt="TurboXML – React Native XML Parser Logo" width="280" />
 </p>
 
-<h1 align="center">🚀 TurboXML – Fast XML Parser for React Native (TurboModules)</h1>
+<h1 align="center">TurboXML – Fast Native XML Parser for React Native</h1>
 
 <p align="center">
-  A blazing-fast, Android-native XML parser built for React Native’s New Architecture using Kotlin, JSI, and TurboModules.  
+  <a href="https://www.npmjs.com/package/react-native-turboxml"><img src="https://img.shields.io/npm/v/react-native-turboxml.svg" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/react-native-turboxml"><img src="https://img.shields.io/npm/dm/react-native-turboxml.svg" alt="npm downloads" /></a>
+  <a href="https://github.com/MikeOuroumis/react-native-turboxml/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/react-native-turboxml.svg" alt="license" /></a>
+</p>
+
+<p align="center">
+  A high-performance native XML parser for React Native using TurboModules and the New Architecture.
   <br />
-  <strong>4× faster</strong> than <code>react-native-xml2js</code> in parsing large XML files.
+  <strong>4× faster</strong> than JavaScript-based parsers like <code>react-native-xml2js</code>.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white" alt="Android" />
+  <img src="https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white" alt="iOS" />
 </p>
 
 ---
 
-## ⚡ Features
+## Features
 
-- ✅ 4× faster than `react-native-xml2js`
-- ✅ Native multithreaded XML parsing on Android
-- ✅ Powered by TurboModules + JSI (New Architecture support)
-- ✅ Lightweight and fully typed (TypeScript ready)
-- ✅ Designed for offline, map-heavy, or config-driven React Native apps
+- **Native performance** – Parses XML natively on both platforms (Kotlin on Android, Objective-C on iOS)
+- **TurboModules + JSI** – Built for React Native's New Architecture
+- **Async & non-blocking** – Parsing runs on background threads
+- **Fully typed** – TypeScript definitions included
+- **Simple API** – Single function, returns a Promise
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 npm install react-native-turboxml
@@ -30,107 +41,108 @@ npm install react-native-turboxml
 yarn add react-native-turboxml
 ```
 
-Make sure **New Architecture** is enabled:
+### iOS
 
 ```bash
-cd ios && RCT_NEW_ARCH_ENABLED=1 pod install && cd ..
+cd ios && pod install
 ```
 
-> ⚠️ Currently supports **Android only**. iOS support planned for future releases.
+### Requirements
+
+- React Native 0.71+
+- New Architecture enabled
+- Android 5.0+ / iOS 13.0+
 
 ---
 
-## 🧪 Usage Example
+## Usage
 
 ```tsx
-import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
 import { parseXml } from 'react-native-turboxml';
 
-export default function App() {
-  const [parsedResult, setParsedResult] = useState<string | null>(null);
+const xml = `
+  <book id="123">
+    <title>The Great Gatsby</title>
+    <author>F. Scott Fitzgerald</author>
+    <year>1925</year>
+  </book>
+`;
 
-  useEffect(() => {
-    const xml = `
-      <config>
-        <title>TurboXML</title>
-        <enabled>true</enabled>
-        <version>1.0</version>
-      </config>
-    `;
-
-    parseXml(xml)
-      .then((result) => {
-        setParsedResult(JSON.stringify(result, null, 2));
-      })
-      .catch((error) => {
-        setParsedResult(\`Error: \${error.message}\`);
-      });
-  }, []);
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Parsed XML:</Text>
-      <Text style={styles.output}>{parsedResult}</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  output: {
-    fontFamily: 'monospace',
-  },
-});
+const result = await parseXml(xml);
+console.log(result);
 ```
 
----
-
-## ✅ Example Output
+### Output
 
 ```json
 {
-  "config": {
-    "title": ["TurboXML"],
-    "enabled": ["true"],
-    "version": ["1.0"]
+  "book": {
+    "_attributes": { "id": "123" },
+    "_children": [
+      { "title": { "_text": "The Great Gatsby" } },
+      { "author": { "_text": "F. Scott Fitzgerald" } },
+      { "year": { "_text": "1925" } }
+    ]
   }
 }
 ```
 
 ---
 
-## 🚀 Why TurboXML?
-
-If your app needs to parse large XML files — such as **offline maps**, **configuration files**, or **external data feeds** — `react-native-turboxml` offers a significant speed improvement over JavaScript-based parsers by leveraging native code, multithreading, and the React Native New Architecture (TurboModules + JSI).
-
----
-
-## 🛠 Requirements
-
-- React Native 0.71+ with **New Architecture enabled**
-- Android 5+ (iOS support coming)
-- TurboModule + JSI support (enabled by default in modern RN projects)
-
----
-
-## 📚 API Reference
+## API
 
 ```ts
-function parseXml(xml: string): Promise<Record<string, any>>;
+function parseXml(xml: string): Promise<Record<string, unknown>>;
 ```
+
+| Parameter | Type     | Description             |
+| --------- | -------- | ----------------------- |
+| `xml`     | `string` | The XML string to parse |
+
+**Returns:** A Promise that resolves to a JavaScript object representing the parsed XML.
+
+### Output Structure
+
+| Key           | Description                          |
+| ------------- | ------------------------------------ |
+| `_attributes` | Object containing element attributes |
+| `_text`       | Text content of the element          |
+| `_children`   | Array of child elements              |
 
 ---
 
-### 🙌 Contribute or Sponsor
+## Why TurboXML?
 
-Got feature ideas or want to help bring iOS support? PRs welcome!
-If this module helps your app or workflow, consider starring the repo or [reaching out](https://github.com/MikeOuroumis).
+JavaScript-based XML parsers run on the JS thread and can block your UI during large file parsing. TurboXML uses native code on both platforms:
+
+- **Android**: Jackson XmlMapper with Kotlin coroutines
+- **iOS**: NSXMLParser with GCD
+
+This means parsing happens on background threads and communicates directly via JSI – no bridge serialization overhead.
+
+### Use cases
+
+- Offline maps and geospatial data (KML, GPX)
+- Configuration files
+- API responses in XML format
+- Data import/export
+
+---
+
+## Comparison
+
+| Parser                    | Native | New Architecture   | Async |
+| ------------------------- | ------ | ------------------ | ----- |
+| **react-native-turboxml** | Yes    | Yes (TurboModules) | Yes   |
+| react-native-xml2js       | No     | No                 | Yes   |
+| fast-xml-parser           | No     | No                 | No    |
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or submit PRs.
+
+## License
+
+MIT

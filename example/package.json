@@ -10,8 +10,10 @@
     "build:ios": "react-native build-ios --mode Debug"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.3.2",
     "react": "19.0.0",
-    "react-native": "0.79.2"
+    "react-native": "0.79.2",
+    "react-native-xml2js": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

@@ -23,6 +23,18 @@
 
 ---
 
+## Benchmark
+
+<p align="center">
+  <img src="./turboxml-fastxml-benchmark.gif" alt="TurboXML vs fast-xml-parser benchmark" width="480" />
+</p>
+
+<p align="center">
+  <em>TurboXML (right) keeps the UI smooth while fast-xml-parser (left) freezes the entire app.</em>
+</p>
+
+---
+
 ## Features
 
 - **Native performance** – Parses XML natively on both platforms (Kotlin on Android, Objective-C on iOS)

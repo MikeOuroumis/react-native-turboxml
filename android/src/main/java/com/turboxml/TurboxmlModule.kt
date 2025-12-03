@@ -19,9 +19,8 @@ class TurboxmlModule(
       try {
         val parsed: Map<String, Any?> = xmlMapper.readValue(xml)
         val cleaned = clean(parsed)
-        val normalized = normalize(cleaned)
         val rootTag = extractRoot(xml)
-        val wrapped = mapOf(rootTag to normalized)
+        val wrapped = mapOf(rootTag to cleaned)
         val result = toWritableMap(wrapped)
 
         withContext(Dispatchers.Main) {
@@ -52,22 +51,6 @@ class TurboxmlModule(
           }
         }.takeIf { it.isNotEmpty() }
         is String -> value.trim().takeIf { it.isNotEmpty() }
-        else -> value
-      }
-    }
-  }
-
-  private fun normalize(map: Map<String, Any?>): Map<String, Any?> {
-    return map.mapValues { (_, value) ->
-      when (value) {
-        is String -> listOf(value)
-        is Map<*, *> -> listOf(normalize(value as Map<String, Any?>))
-        is List<*> -> value.map { item ->
-          when (item) {
-            is Map<*, *> -> normalize(item as Map<String, Any?>)
-            else -> item
-          }
-        }
         else -> value
       }
     }

@@ -61,11 +61,11 @@ cd ios && pod install
 import { parseXml } from 'react-native-turboxml';
 
 const xml = `
-  <book id="123">
-    <title>The Great Gatsby</title>
-    <author>F. Scott Fitzgerald</author>
-    <year>1925</year>
-  </book>
+  <config>
+    <title>TurboXML</title>
+    <enabled>true</enabled>
+    <version>1.0</version>
+  </config>
 `;
 
 const result = await parseXml(xml);
@@ -76,13 +76,10 @@ console.log(result);
 
 ```json
 {
-  "book": {
-    "_attributes": { "id": "123" },
-    "_children": [
-      { "title": { "_text": "The Great Gatsby" } },
-      { "author": { "_text": "F. Scott Fitzgerald" } },
-      { "year": { "_text": "1925" } }
-    ]
+  "config": {
+    "title": "TurboXML",
+    "enabled": "true",
+    "version": "1.0"
   }
 }
 ```
@@ -100,14 +97,6 @@ function parseXml(xml: string): Promise<Record<string, unknown>>;
 | `xml`     | `string` | The XML string to parse |
 
 **Returns:** A Promise that resolves to a JavaScript object representing the parsed XML.
-
-### Output Structure
-
-| Key           | Description                          |
-| ------------- | ------------------------------------ |
-| `_attributes` | Object containing element attributes |
-| `_text`       | Text content of the element          |
-| `_children`   | Array of child elements              |
 
 ---
 

@@ -30,7 +30,7 @@
 </p>
 
 <p align="center">
-  <em>TurboXML (right) keeps the UI smooth while fast-xml-parser (left) freezes the entire app.</em>
+  <em>TurboXML (left) keeps the UI smooth while fast-xml-parser (right) freezes the entire app.</em>
 </p>
 
 ---
